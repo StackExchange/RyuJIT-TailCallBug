@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorruptionRepro", "CorruptionRepro\CorruptionRepro.csproj", "{3154B989-73B0-47FD-97C5-5058D5F49C13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackRedis", "StackRedis\StackRedis.csproj", "{BB079711-18A5-4852-8752-72950310C82F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3154B989-73B0-47FD-97C5-5058D5F49C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3154B989-73B0-47FD-97C5-5058D5F49C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3154B989-73B0-47FD-97C5-5058D5F49C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3154B989-73B0-47FD-97C5-5058D5F49C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB079711-18A5-4852-8752-72950310C82F}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{BB079711-18A5-4852-8752-72950310C82F}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{BB079711-18A5-4852-8752-72950310C82F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB079711-18A5-4852-8752-72950310C82F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

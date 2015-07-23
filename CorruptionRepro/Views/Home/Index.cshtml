@@ -1,0 +1,61 @@
+﻿@model List<CorruptionRepro.Controllers.HomeController.TestInfo>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Debug</title>
+        <style>
+            table { 
+                width: 1200px;
+                font-family: Consolas;
+                border-collapse: collapse;
+            }
+            table td {
+                padding: 2px;
+            }
+            table tr:nth-child(odd) td {
+                background: #eeeeee;
+            }
+            .failed td:last-child {
+                border: solid 2px #FF9999;
+            }
+            .passed td:last-child {
+                border: solid 2px #99FF99;
+            }
+        </style> 
+    </head>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="2">Values</th>
+            <th colspan="4">Durations</th>
+        </tr>
+        <tr>
+            <th>Set</th>
+            <th>Fetched</th>
+            <th>Passed In</th>
+            <th>Local Cache Set</th>
+            <th>With Priority</th>
+            <th>RawSetDuration</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var test in Model)
+            {
+                <tr class="@(test.Passed ? "passed" : "failed")">
+                    <td>@test.Inserted</td>
+                    <td>@test.Fetched</td>
+                    <td>@test.PassedDurationSeconds</td>
+                    <td>@test.LocalCacheSetDuration</td>
+                    <td>@test.LocalCacheSetWithPriorityDuration</td>
+                    <td>@(test.RawSetDuration?.ToString() ?? "(null)")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
