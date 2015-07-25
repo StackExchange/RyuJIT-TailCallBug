@@ -6,10 +6,10 @@ Let's start off with ways to fix this up front. There are a few options.
 
  - If you haven't installed .Net 4.6, don't. Hold off until this serious issue is resolved.
  - If you have or must install .Net 4.6, there are 2 workaround options:
-  - Disable RyuJIT, via a registry key:
-    Set-ItemProperty -Path HKLM:\Software\Microsoft\.NETFramework -Name useLegacyJit -Type DWord -Value 1
-  - Disable RyuJIT, via an environmental variable:
-    COMPLUS_useLegacyJit=1
+  - Disable RyuJIT, via a registry key:  
+    `Set-ItemProperty -Path HKLM:\Software\Microsoft\.NETFramework -Name useLegacyJit -Type DWord -Value 1`
+  - Disable RyuJIT, via an environmental variable:  
+    `COMPLUS_useLegacyJit=1`
 
 
 
