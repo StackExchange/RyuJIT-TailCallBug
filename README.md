@@ -1,4 +1,20 @@
-This repository is for reproducing what appears to be a .Net 4.6 stack corruption issue. We noticed an issue with MiniProfiler in Stack Overflow local (a Visual Studio 2015/.Net 4.6 environment for all developers). The issue does not present on our production tier (which is still .Net 4.5.2, though it is built with Roslyn 1.0.0-rc2 compilers).
+This repository is for demonstrating a .Net 4.6 tail call issue in RyuJIT when running on x64. We initially noticed the issue with MiniProfiler in Stack Overflow when testing locally (a Visual Studio 2015/.Net 4.6 environment for all developers). The issue does not present on our production tier (which is still .Net 4.5.2, though it is built with Roslyn 1.0.0-rc2 compilers).
+
+Fixes
+----
+Let's start off with ways to fix this up front. There are a few options.
+
+ - If you haven't installed .Net 4.6, don't. Hold off until this serious issue is resolved.
+ - If you have or must install .Net 4.6, there are 2 workaround options:
+  - Disable RyuJIT, via a registry key:
+    Set-ItemProperty -Path HKLM:\Software\Microsoft\.NETFramework -Name useLegacyJit -Type DWord -Value 1
+  - Disable RyuJIT, via an environmental variable:
+    COMPLUS_useLegacyJit=1
+
+
+
+Reproducing the issue
+----
 
 Requirements
 ----

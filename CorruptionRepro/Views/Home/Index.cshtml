@@ -1,6 +1,7 @@
 ﻿@model List<CorruptionRepro.Controllers.HomeController.TestInfo>
 @{
     Layout = null;
+    var passed = Model.All(t => t.Passed);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -8,26 +9,36 @@
         <meta charset="utf-8">
         <title>Debug</title>
         <style>
-            table { 
-                width: 1200px;
+            body {
+                font-size: 12px;
+                font-family: Arial;
+            }
+            td, th {
+                padding: 2px 6px;
+            }
+            td:nth-child(1), td:nth-child(2) {
                 font-family: Consolas;
-                border-collapse: collapse;
             }
-            table td {
-                padding: 2px;
-            }
-            table tr:nth-child(odd) td {
+            table tr:nth-child(odd) {
                 background: #eeeeee;
             }
-            .failed td:last-child {
-                border: solid 2px #FF9999;
+            td.failed, .failed td:last-child {
+                background: #FFBBBB;
             }
-            .passed td:last-child {
-                border: solid 2px #99FF99;
+            td.passed, .passed td:last-child {
+                background: #BBFFBB;
+            }
+            b.failed {
+                color: #FF0000;
+            }
+            b.passed {
+                color: #00FF00;
             }
         </style> 
     </head>
 <body>
+    <div>Bitness: <b>@(Environment.Is64BitProcess ? 64 : 32)-bit</b></div>
+    <div>Test Status: <b class="@(passed ? "passed" : "failed")">@(passed ? "Passed" : "Failed")</b></div>
     <table>
         <thead>
         <tr>
@@ -40,7 +51,7 @@
             <th>Passed In</th>
             <th>Local Cache Set</th>
             <th>With Priority</th>
-            <th>RawSetDuration</th>
+            <th>RawSet</th>
         </tr>
         </thead>
         <tbody>
@@ -50,8 +61,8 @@
                     <td>@test.Inserted</td>
                     <td>@test.Fetched</td>
                     <td>@test.PassedDurationSeconds</td>
-                    <td>@test.LocalCacheSetDuration</td>
-                    <td>@test.LocalCacheSetWithPriorityDuration</td>
+                    <td class="@(test.LocalCacheSetDuration == test.PassedDurationSeconds ? "passed" : "failed")">@test.LocalCacheSetDuration</td>
+                    <td class="@(test.LocalCacheSetWithPriorityDuration == test.PassedDurationSeconds ? "passed" : "failed")">@test.LocalCacheSetWithPriorityDuration</td>
                     <td>@(test.RawSetDuration?.ToString() ?? "(null)")</td>
                 </tr>
             }

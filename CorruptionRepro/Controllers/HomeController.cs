@@ -11,7 +11,7 @@ namespace CorruptionRepro.Controllers
         public ActionResult Index()
         {
             var results = new List<TestInfo> { TestFetch() };
-            for (var i = 0; i < 50; i++)
+            for (var i = 0; i < 20; i++)
             {
                 results.Add(TestFetch());
             }

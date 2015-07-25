@@ -37,8 +37,6 @@ namespace CorruptionRepro
                             CurrentTest.RawSetDuration = duration;
                             break;
                     }
-                    //string d = duration == null ? "(nil)" : (duration.ToString() + "s");
-                    //Debug.WriteLine($"Cache duration: {caller}, {key}, {d}");
                 }
             };
         }
