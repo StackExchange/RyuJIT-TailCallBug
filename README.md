@@ -1,4 +1,6 @@
-This repository is for demonstrating a .Net 4.6 tail call issue in RyuJIT when running on x64. We initially noticed the issue with MiniProfiler in Stack Overflow when testing locally (a Visual Studio 2015/.Net 4.6 environment for all developers). The issue does not present on our production tier (which is still .Net 4.5.2, though it is built with Roslyn 1.0.0-rc2 compilers).
+This repository is for demonstrating a .Net 4.6 tail call issue in RyuJIT when running on x64. We initially noticed the issue with MiniProfiler in Stack Overflow when testing locally (a Visual Studio 2015/.Net 4.6 environment for all developers). The issue does not present on our production tier (which is still .Net 4.5.2, though it is built with Roslyn 1.0.0-rc2 compilers).   
+
+A [full blog post on how we discovered the issue and severity is here](http://nickcraver.com/blog/2015/07/27/why-you-should-wait-on-dotnet-46/) Please, take a few minutes and read. The impact of this subtle bug is, in our opinion, critical.
 
 Fixes
 ----
@@ -61,10 +63,11 @@ For example, what you would expect in a call stack is this:
  - `SetWithPriority<T>(key, value, 60, false, CacheItemPriority.Default);`
  - `RawSet(key, value, 60, false, CacheItemPriority.Default);`
 
-What actually happens is the last method call does not get the `60` (or any matching value) passed in from above. Instead it gets *some other value* as seen in the screenshot above. It appears to be a consistent shared value per test run, but we cannot readily explain what's getting substituted in here.
+What actually happens is the last method call does not get the `60` (or any matching value) passed in from above. Instead it gets *some other value* as seen in the screenshot above. It appears to be a consistent shared value per test run, but we cannot readily explain what's getting substituted in here. The [tail call](http://blogs.msdn.com/b/davbr/archive/2007/06/20/enter-leave-tailcall-hooks-part-2-tall-tales-of-tail-calls.aspx) is rigged up incorrectly creating what are seemingly random value substitutions here. In practice it is more restricted on affected scope but no less severe. Take for example a method moving money, or recording the prescription to give a patient and it's easy to see the very severe impact this very, very subtle bug can have.
 
 Additional Notes
 ---
-We can reproduce this on the following platforms:
+We have reproduced this on the following platforms:
  - Windows 8.1 with VS 2015 RTM, .Net 4.6, IIS 8.5
  - Windows 10 with VS 2015 RTM, .Net 4.6, IIS 10
+ - (we have not deployed to our Server OS installs given the severity, yet)
